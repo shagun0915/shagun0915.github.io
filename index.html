@@ -127,8 +127,23 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin-bottom: 22px;
+    margin-bottom: 14px;
   }
+  .open-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--teal);
+    background: var(--teal-soft);
+    border: 1px solid var(--teal);
+    padding: 6px 13px;
+    border-radius: 20px;
+    margin-bottom: 26px;
+  }
+  .open-badge::before{ content: none; }
   h1.hero-title{
     font-family: var(--serif);
     font-weight: 500;
@@ -534,8 +549,9 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-name">Shagun Yadav — Bengaluru, India</div>
+      <div class="open-badge">● Open to new opportunities</div>
       <h1 class="hero-title">Enterprise systems, built to <em>think for themselves.</em></h1>
-      <p class="hero-sub">I'm a Senior Software Engineer at Visa, where I spend most of my time on <b>large-scale enterprise platforms</b> — and the rest teaching <b>AI agents</b> to work inside them. Three years in, one platform now moves $3.5B a year.</p>
+      <p class="hero-sub">I spent three years as a Senior Software Engineer at Visa, where I built <b>large-scale enterprise platforms</b> — and, more recently, the <b>AI agents</b> layered on top of them. One of those platforms now moves $3.5B a year. I'm currently <b>open to new opportunities</b>.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="mailto:shagun0915@gmail.com">Get in touch →</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/shagunyadav0915/" target="_blank" rel="noopener">LinkedIn</a>
@@ -558,8 +574,8 @@
       </div>
       <div class="pipeline-block reveal">
         <div class="pipeline-copy">
-          <p>Most of my career has been spent on the unglamorous, load-bearing parts of enterprise software — <strong>workflow automation, audit logging, release management</strong> — for a platform that now underwrites billions in transactions at Visa.</p>
-          <p>More recently, I've been building the layer above that: <strong>agentic AI workflows</strong> that read enterprise data and act on it. One shipped example — a live architecture using <strong>Python, FastAPI, Claude Agent SDK, and the Model Context Protocol (MCP)</strong> — retrieves Dataverse records and generates context-aware recommendations, without a human in the loop.</p>
+          <p>Most of my career was spent on the unglamorous, load-bearing parts of enterprise software — <strong>workflow automation, audit logging, release management</strong> — for a platform that underwrote billions in transactions at Visa.</p>
+          <p>More recently, I built the layer above that: <strong>agentic AI workflows</strong> that read enterprise data and act on it. One shipped example — a live architecture using <strong>Python, FastAPI, Claude Agent SDK, and the Model Context Protocol (MCP)</strong> — retrieved Dataverse records and generated context-aware recommendations, without a human in the loop.</p>
           <p>The diagram alongside is roughly what that looks like in production.</p>
         </div>
         <div class="pipeline-svg-wrap" id="pipelineWrap">
@@ -732,7 +748,7 @@
     <div class="wrap">
       <div class="eyebrow">Get in touch</div>
       <h2>Building something worth automating?</h2>
-      <p>I'm always glad to talk enterprise architecture, agentic AI, or the messy space where they meet.</p>
+      <p>I'm currently open to new opportunities in enterprise software and agentic AI engineering — always glad to talk shop, too.</p>
       <div class="footer-links">
         <a href="mailto:shagun0915@gmail.com">shagun0915@gmail.com</a>
         <a href="tel:+919810490187">+91 98104 90187</a>
