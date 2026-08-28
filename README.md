@@ -73,13 +73,13 @@ vercel --prod
 ```
 
 This prints the production URL. The stable alias for the current project is
-**`shagun-portfolio-two.vercel.app`**.
+**`shagunyadav.vercel.app`**.
 
 ### 5. Point the widget at your function
 In `index.html`:
 
 ```js
-var VERCEL_HOST = 'shagun-portfolio-two.vercel.app';
+var VERCEL_HOST = 'shagunyadav.vercel.app';
 ```
 
 (host only, no `https://`). Commit and push — GitHub Pages redeploys the site.
@@ -87,7 +87,7 @@ var VERCEL_HOST = 'shagun-portfolio-two.vercel.app';
 ### 6. Smoke-test
 
 ```bash
-curl -s -X POST https://shagun-portfolio-two.vercel.app/api/chat \
+curl -s -X POST https://shagunyadav.vercel.app/api/chat \
   -H 'content-type: application/json' \
   -d '{"messages":[{"role":"user","content":"What did Shagun do at Visa?"}]}'
 ```
