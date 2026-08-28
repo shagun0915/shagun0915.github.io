@@ -1,0 +1,12 @@
+# GitHub Pages (Jekyll) config.
+# These paths are for the Vercel deployment only — keep them out of the
+# published GitHub Pages site so the function source isn't served at
+# shagun0915.github.io/api/... . Vercel ignores this file and still builds /api.
+exclude:
+  - api
+  - node_modules
+  - vercel.json
+  - package.json
+  - README.md
+  - .gitignore
+  - .vercel

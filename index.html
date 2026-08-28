@@ -524,6 +524,206 @@
     color: var(--ink-faint);
   }
 
+  /* ---------- ASK ASSISTANT (floating chat) ---------- */
+  .ask-fab{
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 80;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 12px 16px;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(20,24,27,0.18);
+    transition: background .2s ease, transform .2s ease;
+  }
+  .ask-fab:hover{ background: var(--teal); border-color: var(--teal); }
+  .ask-fab svg{ width: 16px; height: 16px; flex: none; }
+  .ask-fab .dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #55C08E; flex: none;
+  }
+  .ask-fab[hidden]{ display: none; }
+  @media (max-width: 480px){
+    .ask-fab{ right: 14px; bottom: 14px; padding: 12px 14px; }
+    .ask-fab .label{ display: none; }
+  }
+
+  .ask-panel{
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 90;
+    width: min(390px, calc(100vw - 28px));
+    height: min(560px, calc(100vh - 40px));
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 24px 70px rgba(20,24,27,0.28);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(14px) scale(.98);
+    transform-origin: bottom right;
+    pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease;
+  }
+  .ask-panel.open{ opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+  @media (max-width: 480px){
+    .ask-panel{
+      right: 0; bottom: 0;
+      width: 100vw; height: 100dvh;
+      border-radius: 0; border: none;
+    }
+  }
+
+  .ask-head{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 16px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+  }
+  .ask-head h3{
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 17px;
+    margin: 0 0 3px;
+  }
+  .ask-head p{
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .ask-close{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ink-faint);
+    font-size: 20px;
+    line-height: 1;
+    padding: 2px 4px;
+  }
+  .ask-close:hover{ color: var(--ink); }
+
+  .ask-log{
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .ask-msg{
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 88%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .ask-msg.bot{
+    align-self: flex-start;
+    color: var(--ink);
+  }
+  .ask-msg.user{
+    align-self: flex-end;
+    background: var(--teal-soft);
+    color: var(--ink);
+    padding: 9px 13px;
+    border-radius: 12px 12px 3px 12px;
+  }
+  .ask-msg.bot a{ color: var(--teal); }
+  .ask-msg .cursor{
+    display: inline-block;
+    width: 7px; height: 14px;
+    background: var(--teal);
+    vertical-align: -2px;
+    animation: askblink 1s steps(2) infinite;
+  }
+  @keyframes askblink{ 0%,50%{ opacity: 1; } 50.01%,100%{ opacity: 0; } }
+
+  .ask-chips{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .ask-chip{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 40px;
+    padding: 6px 11px;
+    cursor: pointer;
+    transition: border-color .18s ease, color .18s ease;
+  }
+  .ask-chip:hover{ border-color: var(--teal); color: var(--teal); }
+
+  .ask-form{
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--line);
+    background: var(--white);
+  }
+  .ask-form textarea{
+    flex: 1;
+    resize: none;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 9px 11px;
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.4;
+    max-height: 96px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .ask-form textarea:focus-visible{ outline: 2px solid var(--teal); outline-offset: 1px; }
+  .ask-send{
+    flex: none;
+    border: none;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    width: 38px; height: 38px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s ease;
+  }
+  .ask-send:hover:not(:disabled){ background: var(--teal); }
+  .ask-send:disabled{ opacity: .4; cursor: default; }
+  .ask-send svg{ width: 16px; height: 16px; }
+
+  .ask-note{
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--ink-faint);
+    text-align: center;
+    padding: 0 12px 10px;
+    background: var(--white);
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{ transition: none !important; animation: none !important; }
     html{ scroll-behavior: auto; }
@@ -811,6 +1011,211 @@
     });
   }, { threshold: 0.3 });
   if(pipeline) pio.observe(pipeline);
+</script>
+
+<!-- ============ ASK ASSISTANT ============ -->
+<button class="ask-fab" id="askFab" aria-haspopup="dialog" aria-controls="askPanel">
+  <span class="dot"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <span class="label">Ask about me</span>
+</button>
+
+<div class="ask-panel" id="askPanel" role="dialog" aria-modal="false" aria-labelledby="askTitle" aria-hidden="true">
+  <div class="ask-head">
+    <div>
+      <h3 id="askTitle">Ask about Shagun</h3>
+      <p>AI assistant · answers from her experience</p>
+    </div>
+    <button class="ask-close" id="askClose" aria-label="Close assistant">&times;</button>
+  </div>
+  <div class="ask-log" id="askLog" aria-live="polite"></div>
+  <form class="ask-form" id="askForm">
+    <textarea id="askInput" rows="1" placeholder="Ask about her work, skills, projects…" autocomplete="off" aria-label="Your question"></textarea>
+    <button type="submit" class="ask-send" id="askSend" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>
+      </svg>
+    </button>
+  </form>
+  <div class="ask-note">Responses are AI-generated and may be imperfect.</div>
+</div>
+
+<script>
+(function(){
+  // ---- endpoint -----------------------------------------------------------
+  // When the site is served from GitHub Pages there is no backend on that
+  // origin, so calls go to the Vercel deployment. Replace the host below with
+  // your real Vercel URL after `vercel --prod` (e.g. portfolio-assistant.vercel.app).
+  var VERCEL_HOST = 'shagun-portfolio-two.vercel.app';
+  var ENDPOINT = /github\.io$/.test(location.hostname)
+    ? 'https://' + VERCEL_HOST + '/api/chat'
+    : '/api/chat';
+
+  var fab   = document.getElementById('askFab');
+  var panel = document.getElementById('askPanel');
+  var close = document.getElementById('askClose');
+  var log   = document.getElementById('askLog');
+  var form  = document.getElementById('askForm');
+  var input = document.getElementById('askInput');
+  var send  = document.getElementById('askSend');
+
+  var history = [];       // [{role, content}]
+  var busy = false;
+  var greeted = false;
+
+  var SUGGESTIONS = [
+    'What did she do at Visa?',
+    'Tell me about the Hybrid RAG project',
+    'What is she looking for next?',
+    'What AI / agent experience does she have?'
+  ];
+
+  function scrollDown(){ log.scrollTop = log.scrollHeight; }
+
+  function addMsg(role, text){
+    var el = document.createElement('div');
+    el.className = 'ask-msg ' + (role === 'user' ? 'user' : 'bot');
+    el.textContent = text || '';
+    log.appendChild(el);
+    scrollDown();
+    return el;
+  }
+
+  // very small, safe markdown-ish: links + **bold** + line breaks already preserved
+  function render(el, raw){
+    var esc = raw
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    esc = esc.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    esc = esc.replace(/(^|[\s(])((https?:\/\/)[^\s)]+)($|[\s).,])/g,
+      '$1<a href="$2" target="_blank" rel="noopener">$2</a>$4');
+    esc = esc.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    el.innerHTML = esc;
+  }
+
+  function addChips(){
+    var wrap = document.createElement('div');
+    wrap.className = 'ask-chips';
+    SUGGESTIONS.forEach(function(q){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ask-chip';
+      b.textContent = q;
+      b.addEventListener('click', function(){
+        if(busy) return;
+        wrap.remove();
+        ask(q);
+      });
+      wrap.appendChild(b);
+    });
+    log.appendChild(wrap);
+    scrollDown();
+  }
+
+  function greet(){
+    if(greeted) return;
+    greeted = true;
+    addMsg('bot', "Hi — I'm Shagun's assistant. Ask me about her experience, skills, projects or what she's looking for next.");
+    addChips();
+  }
+
+  function setBusy(state){
+    busy = state;
+    send.disabled = state;
+    input.disabled = state;
+  }
+
+  async function ask(text){
+    text = (text || '').trim();
+    if(!text || busy) return;
+
+    var chips = log.querySelector('.ask-chips');
+    if(chips) chips.remove();
+
+    addMsg('user', text);
+    history.push({ role:'user', content:text });
+    input.value = '';
+    input.style.height = 'auto';
+    setBusy(true);
+
+    var botEl = addMsg('bot', '');
+    botEl.innerHTML = '<span class="cursor"></span>';
+    var acc = '';
+
+    try{
+      var res = await fetch(ENDPOINT, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ messages: history })
+      });
+
+      if(!res.ok){
+        var msg = 'Something went wrong. Please try again.';
+        try{ var j = await res.json(); if(j && j.error) msg = j.error; }catch(e){}
+        render(botEl, msg);
+        setBusy(false);
+        return;
+      }
+
+      var reader = res.body.getReader();
+      var dec = new TextDecoder();
+      while(true){
+        var chunk = await reader.read();
+        if(chunk.done) break;
+        acc += dec.decode(chunk.value, { stream:true });
+        render(botEl, acc + '​');
+        scrollDown();
+      }
+      render(botEl, acc.trim() || "I didn't catch that — could you rephrase?");
+      history.push({ role:'assistant', content: acc.trim() });
+      // keep history bounded
+      if(history.length > 16) history = history.slice(-16);
+    }catch(err){
+      render(botEl, 'Could not reach the assistant. Check your connection and try again.');
+    }finally{
+      setBusy(false);
+      input.focus();
+    }
+  }
+
+  // ---- open / close -----------------------------------------------------
+  function openPanel(){
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+    fab.hidden = true;
+    greet();
+    setTimeout(function(){ input.focus(); }, 180);
+  }
+  function closePanel(){
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden','true');
+    fab.hidden = false;
+    fab.focus();
+  }
+
+  fab.addEventListener('click', openPanel);
+  close.addEventListener('click', closePanel);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    ask(input.value);
+  });
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      ask(input.value);
+    }
+  });
+  input.addEventListener('input', function(){
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 96) + 'px';
+  });
+})();
 </script>
 
 </body>

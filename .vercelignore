@@ -1,0 +1,7 @@
+# Keep _config.yml out of the Vercel upload so Vercel does NOT detect this as a
+# Jekyll project. GitHub Pages still uses _config.yml (it's in git); this file
+# only affects what the Vercel CLI uploads.
+_config.yml
+.git
+node_modules
+README.md
