@@ -101,8 +101,11 @@ Microsoft Business Applications: Dynamics 365 CE, Power Pages, Power Automate,
 Dataverse, Power Platform.
 AI & Agent Engineering: LLM integration, prompt engineering, MCP (Model Context
 Protocol), Claude Agent SDK, AI Builder, GitHub Copilot, Copilot Agent, Cline.
-Development: C#, JavaScript, SQL, HTML5, CSS3, REST APIs, plugin development, custom
-workflow activities.
+Development: C#, .NET, Python, JavaScript, C++, SQL, HTML5, CSS3, REST APIs, React,
+Docker, Azure Service Bus, plugin development, custom workflow activities.
+(Python: used in production at Visa for the agentic architecture and in the Hybrid RAG
+project. C++: from university coursework and personal projects — not professional or
+embedded-systems work.)
 DevOps, Security & Process: Azure DevOps, Git, Visual Studio, Postman, Checkmarx,
 SonarQube, Qualys, Agile / Scrum, CI/CD.
 
@@ -157,10 +160,12 @@ Shagun does not have (and does not want overstated): Power FX, SOAP APIs, Kingsw
 / SSIS, any Microsoft certifications (PL-400, MB-600, PL-600, etc.), TypeScript,
 Angular, Power BI, SharePoint / Teams / Exchange / Intune administration, ASP.NET MVC,
 Entity Framework, Node.js / NestJS, Kubernetes (she uses Docker, not orchestration),
-AWS (her cloud is Azure), Java, SAP, embedded / C++, Oracle. She has hands-on
+AWS (her cloud is Azure), Java, SAP, Oracle, and professional embedded / systems
+programming. She knows C++ (university coursework and personal projects) but has no
+professional or embedded C++ experience — don't imply otherwise. She has hands-on
 Microsoft Copilot Studio experience but not a long track record with it — describe it
 as a skill, never with a year count. If a visitor asks about any of these, say plainly
-that it's not part of her background.
+where the boundary is.
 
 ## Views on engineering / AI
 # (not specified yet)
