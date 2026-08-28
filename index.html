@@ -1151,6 +1151,16 @@
         body: JSON.stringify({ messages: history })
       });
 
+      // one silent retry on a transient server error (e.g. slow cold start)
+      if(!res.ok && res.status >= 500){
+        await new Promise(function(r){ setTimeout(r, 1200); });
+        res = await fetch(ENDPOINT, {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ messages: history })
+        });
+      }
+
       if(!res.ok){
         var msg = 'Something went wrong. Please try again.';
         try{ var j = await res.json(); if(j && j.error) msg = j.error; }catch(e){}

@@ -130,8 +130,25 @@ in a local `.env` file, which is git-ignored).
 ## Cost & limits
 
 - **Vercel** Hobby plan: free. This function is tiny and well within limits.
-- **Gemini** free tier: ~15 req/min, ~1,500 req/day. When the daily quota is
-  hit the assistant politely says so and recovers the next day — no bill.
-- The function caps message length and conversation length to keep abuse cheap.
-  For hard per-visitor rate limiting, add Upstash Redis (see Vercel's
-  `@upstash/ratelimit` guide) — not required at portfolio traffic.
+- **Gemini** free tier for `gemini-3.6-flash`: ~10 requests/min, ~1,500/day
+  (per Google project, resets midnight Pacific). Brand-new keys may start lower
+  and ramp up over a day or two. On a 429 the assistant shows a friendly
+  "try again shortly" / "try again tomorrow" message — never a raw error, never
+  a bill. Real portfolio traffic won't come close; rapid manual testing will.
+- The function caps message + conversation length. For hard per-visitor rate
+  limiting add Upstash Redis (`@upstash/ratelimit`) — overkill at this scale.
+
+### If Gemini's free limits prove too tight — switch to Groq
+
+Groq's free tier is much roomier (~1,000 req/day, 30 req/min for Llama 3.3 70B)
+and very fast. The system prompt already keeps it on-topic. To switch:
+
+1. Get a free key at <https://console.groq.com/keys> (no card).
+2. `vercel env add GROQ_API_KEY` (Secret, Production).
+3. In `api/chat.js`, swap the `upstreamUrl` + request body for Groq's
+   OpenAI-compatible endpoint:
+   - URL: `https://api.groq.com/openai/v1/chat/completions`
+   - Header: `Authorization: Bearer ${process.env.GROQ_API_KEY}`
+   - Body: `{ model: "llama-3.3-70b-versatile", stream: true, messages: [{role:"system",content:SYSTEM_PROMPT}, ...history] }`
+   - Parse SSE: `obj.choices[0].delta.content` instead of Gemini's `parts[].text`.
+4. `vercel --prod`.

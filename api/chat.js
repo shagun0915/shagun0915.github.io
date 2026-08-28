@@ -13,6 +13,12 @@ import { SYSTEM_PROMPT } from './_persona.js';
 
 export const config = { runtime: 'edge' };
 
+// Edge Functions are killed at 25s. Abort the Gemini call a little before that
+// so the visitor gets a clean "try again" JSON error (which the widget retries
+// once automatically) instead of a raw 504 error page. Gemini's free tier
+// normally answers in 3–7s; this only bites on a cold/slow first token.
+const UPSTREAM_TIMEOUT_MS = 20000;
+
 const MODEL = 'gemini-3.6-flash';
 const MAX_MESSAGES = 16;        // total turns kept from the client
 const MAX_CHARS_PER_MSG = 1500; // per message
@@ -103,11 +109,15 @@ export default async function handler(req) {
   const upstreamUrl =
     `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:streamGenerateContent?alt=sse&key=${apiKey}`;
 
+  const ac = new AbortController();
+  const abortTimer = setTimeout(() => ac.abort(), UPSTREAM_TIMEOUT_MS);
+
   let upstream;
   try {
     upstream = await fetch(upstreamUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      signal: ac.signal,
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
         contents,
@@ -123,18 +133,35 @@ export default async function handler(req) {
         ],
       }),
     });
-  } catch {
-    return json({ error: 'Could not reach the model.' }, 502, origin);
+  } catch (err) {
+    clearTimeout(abortTimer);
+    const timedOut = err && err.name === 'AbortError';
+    return json(
+      { error: timedOut
+          ? 'The assistant took too long to respond — please try again.'
+          : 'Could not reach the model.' },
+      timedOut ? 504 : 502,
+      origin,
+    );
   }
 
   if (!upstream.ok || !upstream.body) {
+    clearTimeout(abortTimer);
     let detail = '';
     try { detail = await upstream.text(); } catch {}
     console.error('GEMINI_ERROR', upstream.status, detail.slice(0, 800));
-    // 429 = Gemini free-tier quota for the day is spent.
+    // 429 = Gemini free-tier rate limit. Google includes a retry hint; a short
+    // one (seconds) means a per-minute burst limit, a long one means the daily
+    // cap is spent.
+    const retryHint = parseFloat(
+      (detail.match(/retry in ([\d.]+)s/i) || detail.match(/"retryDelay":\s*"([\d.]+)s/i) || [])[1],
+    );
+    const perDay = /PerDay|per day|daily/i.test(detail) || (retryHint && retryHint > 300);
     const friendly =
       upstream.status === 429
-        ? "The assistant has hit today's usage limit. Try again tomorrow, or email shagun0915@gmail.com."
+        ? perDay
+          ? "The assistant has hit today's usage limit. Please try again tomorrow, or email shagun0915@gmail.com."
+          : "The assistant is handling a lot of questions right now — please try again in a minute."
         : 'The assistant ran into a problem. Please try again in a moment.';
     return json({ error: friendly }, upstream.status === 429 ? 429 : 502, origin);
   }
@@ -147,35 +174,57 @@ export default async function handler(req) {
   const stream = new ReadableStream({
     async start(controller) {
       const reader = upstream.body.getReader();
+      let sawText = false;
+      let blockedReason = '';
+
+      const handleLine = (line) => {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data:')) return;
+        const payload = trimmed.slice(5).trim();
+        if (!payload || payload === '[DONE]') return;
+        let obj;
+        try { obj = JSON.parse(payload); } catch { return; }
+        const cand = obj?.candidates?.[0];
+        const parts = cand?.content?.parts;
+        if (Array.isArray(parts)) {
+          for (const p of parts) {
+            if (p.text) { controller.enqueue(encoder.encode(p.text)); sawText = true; }
+          }
+        }
+        // SAFETY / RECITATION / OTHER with no content
+        if (cand?.finishReason && cand.finishReason !== 'STOP' && cand.finishReason !== 'MAX_TOKENS') {
+          blockedReason = cand.finishReason;
+        }
+        if (obj?.promptFeedback?.blockReason) blockedReason = obj.promptFeedback.blockReason;
+      };
+
       try {
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
           buffer += decoder.decode(value, { stream: true });
-
           const lines = buffer.split('\n');
           buffer = lines.pop() || '';
-          for (const line of lines) {
-            const trimmed = line.trim();
-            if (!trimmed.startsWith('data:')) continue;
-            const payload = trimmed.slice(5).trim();
-            if (!payload || payload === '[DONE]') continue;
-            try {
-              const obj = JSON.parse(payload);
-              const parts = obj?.candidates?.[0]?.content?.parts;
-              if (Array.isArray(parts)) {
-                for (const p of parts) {
-                  if (p.text) controller.enqueue(encoder.encode(p.text));
-                }
-              }
-            } catch {
-              // partial JSON across chunks — ignore, it'll come round again
-            }
-          }
+          for (const line of lines) handleLine(line);
+        }
+        // flush any trailing line the stream didn't newline-terminate
+        buffer += decoder.decode();
+        if (buffer.trim()) handleLine(buffer);
+
+        if (!sawText) {
+          console.error('GEMINI_EMPTY', blockedReason || 'no-text');
+          controller.enqueue(encoder.encode(
+            blockedReason
+              ? "I can't answer that one. Ask me something about Shagun's work or background."
+              : "Sorry — I didn't get a response that time. Please try again.",
+          ));
         }
       } catch {
-        controller.enqueue(encoder.encode('\n\n(Connection interrupted.)'));
+        if (!sawText) {
+          controller.enqueue(encoder.encode('Sorry — the response was interrupted. Please try again.'));
+        }
       } finally {
+        clearTimeout(abortTimer);
         controller.close();
       }
     },
