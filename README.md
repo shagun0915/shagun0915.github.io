@@ -7,7 +7,7 @@ about Shagun. The static site can't hold an API key, so the chat calls a small
 serverless function on **Vercel** that talks to **Google Gemini**.
 
 ```
-Browser (GitHub Pages)  ──POST /api/chat──▶  Vercel Edge Function  ──▶  Gemini 3.6 Flash
+Browser (GitHub Pages)  ──POST /api/chat──▶  Vercel Edge Function  ──▶  Gemini Flash (latest)
                                              (holds GEMINI_API_KEY,
                                               injects the persona +
                                               knowledge base, streams
@@ -130,11 +130,12 @@ in a local `.env` file, which is git-ignored).
 ## Cost & limits
 
 - **Vercel** Hobby plan: free. This function is tiny and well within limits.
-- **Gemini** free tier for `gemini-3.6-flash`: ~10 requests/min, ~1,500/day
-  (per Google project, resets midnight Pacific). Brand-new keys may start lower
-  and ramp up over a day or two. On a 429 the assistant shows a friendly
-  "try again shortly" / "try again tomorrow" message — never a raw error, never
-  a bill. Real portfolio traffic won't come close; rapid manual testing will.
+- **Gemini** free tier for `gemini-flash-latest`: ~10 requests/min, ~1,500/day
+  (per Google project, resets midnight Pacific). Do **not** pin the
+  `gemini-3.6-flash` preview release — its free tier is ~20 requests/day.
+  On a 429 the assistant shows a friendly "try again shortly" / "try again
+  tomorrow" message — never a raw error, never a bill. Real portfolio traffic
+  won't come close; rapid manual testing will.
 - The function caps message + conversation length. For hard per-visitor rate
   limiting add Upstash Redis (`@upstash/ratelimit`) — overkill at this scale.
 

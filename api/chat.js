@@ -19,7 +19,10 @@ export const config = { runtime: 'edge' };
 // normally answers in 3–7s; this only bites on a cold/slow first token.
 const UPSTREAM_TIMEOUT_MS = 20000;
 
-const MODEL = 'gemini-3.6-flash';
+// 'gemini-flash-latest' is the stable Flash alias (full free tier: ~10 RPM /
+// ~1,500 RPD). The pinned 'gemini-3.6-flash' preview release is capped at ~20
+// requests/day on the free tier — avoid it.
+const MODEL = 'gemini-flash-latest';
 const MAX_MESSAGES = 16;        // total turns kept from the client
 const MAX_CHARS_PER_MSG = 1500; // per message
 const MAX_CHARS_TOTAL = 8000;   // whole conversation
