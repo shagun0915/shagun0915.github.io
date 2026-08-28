@@ -75,6 +75,7 @@
     font-size: 13px;
     letter-spacing: 0.06em;
     font-weight: 500;
+    white-space: nowrap;
   }
   .nav-links{
     display: flex;
@@ -96,6 +97,11 @@
   @media (max-width: 620px){
     .nav-links{ gap: 16px; }
     .nav-links li:nth-child(3){ display:none; }
+  }
+  @media (max-width: 480px){
+    .nav-inner{ padding: 16px 20px; }
+    .nav-links{ gap: 15px; font-size: 12.5px; }
+    .nav-links li:nth-child(4){ display:none; }
   }
 
   /* ---------- EYEBROW / LABELS ---------- */
@@ -777,7 +783,7 @@
         <div class="pipeline-copy">
           <p>Most of my career was the load-bearing parts of enterprise software — <strong>Dynamics 365 / Power Platform engineering</strong> (C#/.NET plugins and custom workflow activities, not drag-and-drop), workflow automation, audit logging, release management — for a platform that underwrote billions in transactions at Visa. I shipped <strong>100+ workflow automations</strong> and onboarded six business programs, each as its own Power Pages module.</p>
           <p>In my last year there, I built the layer above that: <strong>agentic AI workflows</strong> that read enterprise data and act on it. One shipped example — a live architecture using <strong>Python, FastAPI, Claude Agent SDK, and the Model Context Protocol (MCP)</strong> — retrieved Dataverse records and generated context-aware recommendations, without a human in the loop.</p>
-          <p>The diagram alongside is roughly what that looks like in production.</p>
+          <p>The diagram shows roughly what that looks like in production.</p>
         </div>
         <div class="pipeline-svg-wrap" id="pipelineWrap">
           <svg viewBox="0 0 300 320" width="100%" role="img" aria-label="Diagram: Dataverse connects to MCP Server, which connects to Claude Agent, which produces a Recommendation">
