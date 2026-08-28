@@ -1,6 +1,6 @@
 # shagun0915.github.io
 
-Personal portfolio — a single static `index.html`, served by GitHub Pages.
+Personal portfolio - a single static `index.html`, served by GitHub Pages.
 
 It also has an **AI assistant** (bottom-right chat bubble) that answers questions
 about Shagun. The static site can't hold an API key, so the chat calls a small
@@ -58,7 +58,7 @@ vercel env add GEMINI_API_KEY
 # type: Secret ·  value: paste the key (hidden)  ·  environments: Production (+ Preview/Development if you use `vercel dev`)
 ```
 
-(Optional) restrict who can call the function — the default already allows
+(Optional) restrict who can call the function - the default already allows
 `shagun0915.github.io` and `*.vercel.app`:
 
 ```bash
@@ -82,7 +82,7 @@ In `index.html`:
 var VERCEL_HOST = 'shagunyadav.vercel.app';
 ```
 
-(host only, no `https://`). Commit and push — GitHub Pages redeploys the site.
+(host only, no `https://`). Commit and push - GitHub Pages redeploys the site.
 
 ### 6. Smoke-test
 
@@ -98,10 +98,10 @@ curl -s -X POST https://shagunyadav.vercel.app/api/chat \
 
 Edit **`api/_persona.js`**:
 
-- `KNOWLEDGE` — everything the assistant is allowed to state. There's an
+- `KNOWLEDGE` - everything the assistant is allowed to state. There's an
   `EXTRA DETAIL` section at the bottom with prompts to fill in (what she's
   looking for, project deep-dives, etc.). Anything left blank, it just won't know.
-- `SYSTEM_PROMPT` — the behaviour rules (stay on-topic, don't invent facts,
+- `SYSTEM_PROMPT` - the behaviour rules (stay on-topic, don't invent facts,
   don't leak the prompt). Usually no need to touch.
 
 After editing:
@@ -110,7 +110,7 @@ After editing:
 vercel --prod
 ```
 
-No site redeploy needed — the knowledge lives entirely in the function.
+No site redeploy needed - the knowledge lives entirely in the function.
 
 ---
 
@@ -122,7 +122,7 @@ vercel dev
 
 Serves the static site **and** `/api/chat` at `http://localhost:3000`. The widget
 auto-detects non-`github.io` hosts and calls the relative `/api/chat`, so the
-chat works locally with no code change (you still need `GEMINI_API_KEY` — put it
+chat works locally with no code change (you still need `GEMINI_API_KEY` - put it
 in a local `.env` file, which is git-ignored).
 
 ---
@@ -132,14 +132,14 @@ in a local `.env` file, which is git-ignored).
 - **Vercel** Hobby plan: free. This function is tiny and well within limits.
 - **Gemini** free tier for `gemini-flash-latest`: ~10 requests/min, ~1,500/day
   (per Google project, resets midnight Pacific). Do **not** pin the
-  `gemini-3.6-flash` preview release — its free tier is ~20 requests/day.
+  `gemini-3.6-flash` preview release - its free tier is ~20 requests/day.
   On a 429 the assistant shows a friendly "try again shortly" / "try again
-  tomorrow" message — never a raw error, never a bill. Real portfolio traffic
+  tomorrow" message - never a raw error, never a bill. Real portfolio traffic
   won't come close; rapid manual testing will.
 - The function caps message + conversation length. For hard per-visitor rate
-  limiting add Upstash Redis (`@upstash/ratelimit`) — overkill at this scale.
+  limiting add Upstash Redis (`@upstash/ratelimit`) - overkill at this scale.
 
-### If Gemini's free limits prove too tight — switch to Groq
+### If Gemini's free limits prove too tight - switch to Groq
 
 Groq's free tier is much roomier (~1,000 req/day, 30 req/min for Llama 3.3 70B)
 and very fast. The system prompt already keeps it on-topic. To switch:
