@@ -1,11 +1,11 @@
-// api/chat.js — Vercel Edge Function.
+// api/chat.js - Vercel Edge Function.
 // Proxies the portfolio chat to Google Gemini so the API key never reaches the
 // browser. Streams the reply back as plain-text chunks.
 //
 // Required env var (set in Vercel → Project → Settings → Environment Variables):
-//   GEMINI_API_KEY   — from https://aistudio.google.com/apikey  (free tier)
+//   GEMINI_API_KEY   - from https://aistudio.google.com/apikey  (free tier)
 // Optional env var:
-//   ALLOWED_ORIGINS  — comma-separated list of sites allowed to call this.
+//   ALLOWED_ORIGINS  - comma-separated list of sites allowed to call this.
 //                      Defaults to Shagun's site + localhost. Example:
 //                      "https://shagun0915.github.io,https://shagunyadav.com"
 
@@ -16,13 +16,13 @@ export const config = { runtime: 'edge' };
 // Edge Functions are killed at 25s. Abort the Gemini call a little before that
 // so the visitor gets a clean "try again" JSON error (which the widget retries
 // once automatically) instead of a raw 504 error page. Gemini's free tier
-// normally answers in 3–7s; this only bites on a cold/slow first token.
+// normally answers in 1-3s; this only bites on a cold/slow model.
 const UPSTREAM_TIMEOUT_MS = 20000;
 
-// 'gemini-flash-latest' is the stable Flash alias (full free tier: ~10 RPM /
-// ~1,500 RPD). The pinned 'gemini-3.6-flash' preview release is capped at ~20
-// requests/day on the free tier — avoid it.
-const MODEL = 'gemini-flash-latest';
+// Model notes (Aug 2026): fresh API keys can't use gemini-2.x models, and
+// 'gemini-flash-latest' / 'gemini-3.6-flash' were near-permanently 503 or capped
+// at ~20 req/day on the free tier. gemini-3.5-flash-lite is fast and reliable.
+const MODEL = 'gemini-3.5-flash-lite';
 const MAX_MESSAGES = 16;        // total turns kept from the client
 const MAX_CHARS_PER_MSG = 1500; // per message
 const MAX_CHARS_TOTAL = 8000;   // whole conversation
@@ -100,7 +100,7 @@ export default async function handler(req) {
     total += m.content.length;
   }
   if (total > MAX_CHARS_TOTAL) {
-    return json({ error: 'Conversation is too long — start a new chat.' }, 413, origin);
+    return json({ error: 'Conversation is too long - start a new chat.' }, 413, origin);
   }
 
   // ---- build Gemini request ----------------------------------------------
@@ -109,8 +109,11 @@ export default async function handler(req) {
     parts: [{ text: m.content }],
   }));
 
+  // Non-streaming call: Gemini's SSE stream for the flash-lite models truncates
+  // intermittently, so we fetch the whole answer in one JSON response and then
+  // re-stream it to the widget in slices (keeps the typing effect, no data loss).
   const upstreamUrl =
-    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:streamGenerateContent?alt=sse&key=${apiKey}`;
+    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
 
   const ac = new AbortController();
   const abortTimer = setTimeout(() => ac.abort(), UPSTREAM_TIMEOUT_MS);
@@ -141,95 +144,62 @@ export default async function handler(req) {
     const timedOut = err && err.name === 'AbortError';
     return json(
       { error: timedOut
-          ? 'The assistant took too long to respond — please try again.'
+          ? 'The assistant took too long to respond, please try again.'
           : 'Could not reach the model.' },
       timedOut ? 504 : 502,
       origin,
     );
   }
+  clearTimeout(abortTimer);
 
-  if (!upstream.ok || !upstream.body) {
-    clearTimeout(abortTimer);
-    let detail = '';
-    try { detail = await upstream.text(); } catch {}
-    console.error('GEMINI_ERROR', upstream.status, detail.slice(0, 800));
+  const raw = await upstream.text();
+
+  if (!upstream.ok) {
+    console.error('GEMINI_ERROR', upstream.status, raw.slice(0, 800));
     // 429 = Gemini free-tier rate limit. Google includes a retry hint; a short
     // one (seconds) means a per-minute burst limit, a long one means the daily
     // cap is spent.
     const retryHint = parseFloat(
-      (detail.match(/retry in ([\d.]+)s/i) || detail.match(/"retryDelay":\s*"([\d.]+)s/i) || [])[1],
+      (raw.match(/retry in ([\d.]+)s/i) || raw.match(/"retryDelay":\s*"([\d.]+)s/i) || [])[1],
     );
-    const perDay = /PerDay|per day|daily/i.test(detail) || (retryHint && retryHint > 300);
+    const perDay = /PerDay|per day|daily/i.test(raw) || (retryHint && retryHint > 300);
     const friendly =
       upstream.status === 429
         ? perDay
           ? "The assistant has hit today's usage limit. Please try again tomorrow, or email shagun0915@gmail.com."
-          : "The assistant is handling a lot of questions right now — please try again in a minute."
+          : "The assistant is handling a lot of questions right now, please try again in a minute."
         : 'The assistant ran into a problem. Please try again in a moment.';
     return json({ error: friendly }, upstream.status === 429 ? 429 : 502, origin);
   }
 
-  // ---- transform Gemini SSE -> plain text stream --------------------------
-  const decoder = new TextDecoder();
-  const encoder = new TextEncoder();
-  let buffer = '';
+  let data;
+  try { data = JSON.parse(raw); } catch {
+    console.error('GEMINI_PARSE', raw.slice(0, 400));
+    return json({ error: 'The assistant ran into a problem. Please try again.' }, 502, origin);
+  }
 
+  const cand = data?.candidates?.[0];
+  const text = (cand?.content?.parts || []).map((p) => p.text || '').join('').trim();
+  const blocked =
+    data?.promptFeedback?.blockReason ||
+    (cand?.finishReason && !['STOP', 'MAX_TOKENS'].includes(cand.finishReason) ? cand.finishReason : '');
+
+  let reply = text;
+  if (!reply) {
+    console.error('GEMINI_EMPTY', blocked || 'no-text');
+    reply = "I don't have anything on that. Ask me about Shagun's experience, skills, projects, or what she's looking for next, or email her at shagun0915@gmail.com.";
+  }
+
+  // ---- re-stream the finished reply to the widget, a few words at a time ----
+  const encoder = new TextEncoder();
+  const tokens = reply.match(/\S+\s*/g) || [reply];
   const stream = new ReadableStream({
     async start(controller) {
-      const reader = upstream.body.getReader();
-      let sawText = false;
-      let blockedReason = '';
-
-      const handleLine = (line) => {
-        const trimmed = line.trim();
-        if (!trimmed.startsWith('data:')) return;
-        const payload = trimmed.slice(5).trim();
-        if (!payload || payload === '[DONE]') return;
-        let obj;
-        try { obj = JSON.parse(payload); } catch { return; }
-        const cand = obj?.candidates?.[0];
-        const parts = cand?.content?.parts;
-        if (Array.isArray(parts)) {
-          for (const p of parts) {
-            if (p.text) { controller.enqueue(encoder.encode(p.text)); sawText = true; }
-          }
-        }
-        // SAFETY / RECITATION / OTHER with no content
-        if (cand?.finishReason && cand.finishReason !== 'STOP' && cand.finishReason !== 'MAX_TOKENS') {
-          blockedReason = cand.finishReason;
-        }
-        if (obj?.promptFeedback?.blockReason) blockedReason = obj.promptFeedback.blockReason;
-      };
-
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-          for (const line of lines) handleLine(line);
-        }
-        // flush any trailing line the stream didn't newline-terminate
-        buffer += decoder.decode();
-        if (buffer.trim()) handleLine(buffer);
-
-        if (!sawText) {
-          console.error('GEMINI_EMPTY', blockedReason || 'no-text');
-          controller.enqueue(encoder.encode(
-            blockedReason
-              ? "I can't answer that one. Ask me something about Shagun's work or background."
-              : "Sorry — I didn't get a response that time. Please try again.",
-          ));
-        }
-      } catch {
-        if (!sawText) {
-          controller.enqueue(encoder.encode('Sorry — the response was interrupted. Please try again.'));
-        }
-      } finally {
-        clearTimeout(abortTimer);
-        controller.close();
+      for (let i = 0; i < tokens.length; i += 2) {
+        controller.enqueue(encoder.encode(tokens[i] + (tokens[i + 1] || '')));
+        if (i + 2 < tokens.length) await new Promise((r) => setTimeout(r, 18));
       }
+      controller.close();
     },
   });
 
