@@ -71,6 +71,8 @@ required.
 
 ## Hybrid RAG Platform
 Repo: https://github.com/shagun0915/hybrid-rag-platform
+Live demo: https://hybrid-rag-platform.onrender.com/ui/ (open, no sign-in; free
+hosting so the first load can take up to a minute to wake)
 A retrieval-augmented generation system built, evaluated and debugged in the open - not
 a tutorial clone. Upload documents, ask questions, get answers grounded only in what was
 actually uploaded; the system says "I don't know" rather than guessing.

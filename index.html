@@ -915,7 +915,10 @@
           <div><b>11</b><span>Golden Eval Cases</span></div>
         </div>
         <p class="pub-desc">Found and fixed a real retrieval bug along the way: a paraphrased query collapsed retrieval confidence from <b>0.98</b> (asking "SonarQube" directly) to <b>0.0006</b> (asking "what security tools were used for remediation?"). Traced to a chunk-boundary issue, fixed with embedding-based semantic chunking - then re-diagnosed further when the fix alone turned out not to be sufficient, revealing a second, still-open corpus-imbalance limitation. Documented in full in the README, not smoothed over.</p>
-        <a class="pub-link" href="https://github.com/shagun0915/hybrid-rag-platform" target="_blank" rel="noopener">View on GitHub ↗</a>
+        <div style="display:flex; flex-wrap:wrap; gap:14px 22px;">
+          <a class="pub-link" href="https://github.com/shagun0915/hybrid-rag-platform" target="_blank" rel="noopener">View on GitHub ↗</a>
+          <a class="pub-link" href="https://hybrid-rag-platform.onrender.com/ui/" target="_blank" rel="noopener">Try the live demo ↗</a>
+        </div>
       </div>
 
       <div class="pub-card reveal" style="margin-top:24px;">
