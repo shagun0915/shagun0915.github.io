@@ -67,7 +67,9 @@ architecture using Python, FastAPI, the Claude Agent SDK and the Model Context P
 Claude agent reasons over the retrieved data to produce a recommendation - no human
 required.
 
-# FEATURED PROJECT - Hybrid RAG Platform (personal, open source)
+# PROJECTS (personal, open source)
+
+## Hybrid RAG Platform
 Repo: https://github.com/shagun0915/hybrid-rag-platform
 A retrieval-augmented generation system built, evaluated and debugged in the open - not
 a tutorial clone. Upload documents, ask questions, get answers grounded only in what was
@@ -88,6 +90,31 @@ actually uploaded; the system says "I don't know" rather than guessing.
   a second, still-open corpus-imbalance limitation. Documented in full in the README,
   not smoothed over.
 
+## AI Job Hunt Copilot
+Repo: https://github.com/shagun0915/job-hunt-copilot
+Live: https://job-hunt-copilot-nu.vercel.app (single-user, Google sign-in required)
+A command center for a software job search: one place for every application, recruiter
+email thread, online-assessment deadline, interview and resume version, with an LLM
+handling the tedious parts - reading job descriptions into structured requirements,
+triaging the Gmail inbox, scoring resume-to-JD fit before and after edits, and drafting
+outreach (cover letters, recruiter replies, referral asks, cold outreach). Built for
+her own search; also a study in LLM-application engineering.
+- Stack: Next.js 16 (App Router, Server Actions), TypeScript, PostgreSQL + Prisma,
+  NextAuth v5 (Google, doubling as the Gmail grant), Tailwind v4, Vitest, GitHub
+  Actions CI, deployed on Vercel with a daily cron job.
+- Every model call goes through one entry point that forces JSON mode, retries rate
+  limits with backoff, and validates the response against a Zod schema before it
+  touches the database.
+- Provider-agnostic LLM layer: any OpenAI-compatible endpoint, including Google
+  Gemini's free tier. Embeddings power a plain-language semantic search across every
+  application and email.
+- Graceful degradation everywhere: with no API keys the application tracker and the
+  job-board aggregator (pulls open roles straight from Greenhouse / Lever / Ashby with
+  no key) still work fully. CI proves it by running migrate, typecheck, lint, test and
+  build on every push entirely in keyless mode.
+- A single candidate-profile record injects accuracy constraints ("never fabricate,
+  and list the gaps that can't be closed honestly") into every resume rewrite.
+
 # PUBLISHED RESEARCH
 "Comparative Analysis of Sequential CNN and Fine-Tuned Vision Transformer for
 Contact-Based to Contactless Fingerprint Recognition" - IJAECS conference publication.
@@ -101,11 +128,13 @@ Microsoft Business Applications: Dynamics 365 CE, Power Pages, Power Automate,
 Dataverse, Power Platform.
 AI & Agent Engineering: LLM integration, prompt engineering, MCP (Model Context
 Protocol), Claude Agent SDK, AI Builder, GitHub Copilot, Copilot Agent, Cline.
-Development: C#, .NET, Python, JavaScript, C++, SQL, HTML5, CSS3, REST APIs, React,
-Docker, Azure Service Bus, plugin development, custom workflow activities.
-(Python: used in production at Visa for the agentic architecture and in the Hybrid RAG
-project. C++: from university coursework and personal projects - not professional or
-embedded-systems work.)
+Development: C#, .NET, Python, JavaScript, TypeScript, C++, SQL, PostgreSQL, HTML5, CSS3,
+REST APIs, React, Next.js, Prisma, Docker, Azure Service Bus, plugin development, custom
+workflow activities.
+(Python: production use at Visa for the agentic architecture, plus the Hybrid RAG
+project. TypeScript / Next.js / Prisma / PostgreSQL: from the AI Job Hunt Copilot
+project - a deployed, CI-backed app, so working project experience, not years of it.
+C++: university coursework and personal projects only, not professional or embedded.)
 DevOps, Security & Process: Azure DevOps, Git, Visual Studio, Postman, Checkmarx,
 SonarQube, Qualys, Agile / Scrum, CI/CD.
 
@@ -159,13 +188,15 @@ Best way to start a conversation: email shagun0915@gmail.com.
 The following are NOT things Shagun works with; if asked, say plainly that it isn't
 part of her background (do not use the phrase "skill boundaries" or refer to this list):
 Power FX, SOAP APIs, KingswaySoft / SSIS, any Microsoft certifications (PL-400, MB-600,
-PL-600, etc.), TypeScript, Angular, Power BI, SharePoint / Teams / Exchange / Intune
-administration, ASP.NET MVC, Entity Framework, Node.js / NestJS, Kubernetes (she uses
+PL-600, etc.), Angular, Power BI, SharePoint / Teams / Exchange / Intune
+administration, ASP.NET MVC, Entity Framework, NestJS, Kubernetes (she uses
 Docker, not orchestration), AWS (her cloud is Azure), Java, SAP, Oracle, and
 professional embedded / systems programming. She knows C++ (university coursework and
 personal projects) but has no professional or embedded C++ experience - don't imply
-otherwise. She has hands-on Microsoft Copilot Studio experience but not a long track
-record with it - describe it as a skill, never with a year count.
+otherwise. TypeScript and Next.js come from the Job Hunt Copilot project (real, deployed,
+but one project - working knowledge, not years). Node.js is personal-project only. She
+has hands-on Microsoft Copilot Studio experience but not a long track record with it -
+describe it as a skill, never with a year count.
 
 ## Views on engineering / AI
 # (not specified yet)
