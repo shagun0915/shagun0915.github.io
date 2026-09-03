@@ -41,9 +41,15 @@ function allowedOrigins() {
   return fromEnv.length ? fromEnv : DEFAULT_ORIGINS;
 }
 
+/** An origin we serve the widget from. Also gates who may call the endpoint. */
+function originAllowed(origin) {
+  const list = allowedOrigins();
+  return Boolean(origin) && (list.includes(origin) || origin.endsWith('.vercel.app'));
+}
+
 function corsHeaders(origin) {
   const list = allowedOrigins();
-  const ok = origin && (list.includes(origin) || origin.endsWith('.vercel.app'));
+  const ok = originAllowed(origin);
   return {
     'Access-Control-Allow-Origin': ok ? origin : list[0],
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -69,6 +75,13 @@ export default async function handler(req) {
   }
   if (req.method !== 'POST') {
     return json({ error: 'Method not allowed' }, 405, origin);
+  }
+
+  // Only calls from a page we serve the widget on. Browsers always send Origin
+  // on a cross-origin POST, so the real widget is unaffected; this turns away
+  // drive-by scripts and curl that would otherwise burn the free-tier quota.
+  if (!originAllowed(origin)) {
+    return json({ error: 'Forbidden' }, 403, origin);
   }
 
   const apiKey = process.env.GEMINI_API_KEY;
