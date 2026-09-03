@@ -1112,14 +1112,16 @@
     return el;
   }
 
-  // very small, safe markdown-ish: links + **bold** + line breaks already preserved
+  // very small, safe markdown-ish: links + **bold** + line breaks already preserved.
+  // The URL character classes exclude " ' < > so a crafted link in the model's
+  // reply can't break out of href="..." into an event-handler attribute.
   function render(el, raw){
     var esc = raw
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    esc = esc.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
-      '<a href="$2" target="_blank" rel="noopener">$1</a>');
-    esc = esc.replace(/(^|[\s(])((https?:\/\/)[^\s)]+)($|[\s).,])/g,
-      '$1<a href="$2" target="_blank" rel="noopener">$2</a>$4');
+    esc = esc.replace(/\[([^\]]+)\]\((https?:\/\/[^\s"'<>)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    esc = esc.replace(/(^|[\s(])((https?:\/\/)[^\s"'<>)]+)($|[\s).,])/g,
+      '$1<a href="$2" target="_blank" rel="noopener noreferrer">$2</a>$4');
     esc = esc.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(?![^<]*<\/a>)/g,
       '<a href="mailto:$1">$1</a>');
     esc = esc.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
