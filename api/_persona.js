@@ -5,7 +5,7 @@
 export const KNOWLEDGE = `
 # WHO THIS IS ABOUT
 Shagun Yadav - Senior Software Engineer based in Bengaluru, India.
-Builds large-scale enterprise platforms and the AI agents layered on top of them.
+Builds enterprise backends and the AI agents that run on them.
 Currently open to new opportunities.
 
 Contact: shagun0915@gmail.com · +91 98104 90187
@@ -13,59 +13,84 @@ LinkedIn: https://www.linkedin.com/in/shagunyadav0915/
 GitHub: https://github.com/shagun0915
 
 # SUMMARY
-Spent ~3 years at Visa (Jun 2023 - Jul 2026), promoted twice: Software Development
-Intern → Software Engineer → Senior Software Engineer. Contributed from inception to
-the VERC platform (a global risk & customer-operations platform) which now enables
-roughly $3.5B in annual revenue. Delivered 1,000+ production pull requests. The core
-of her work was Dynamics 365 / Power Platform engineering (C#/.NET plugins, custom
-workflow activities, Dataverse, Power Pages); in her last year there (from roughly
-late 2025) she added an agentic-AI layer on top of it. She is now open to new
-opportunities and available to start immediately.
+Senior Software Engineer with 3+ years at Visa, from intern to Senior, building backend
+services, REST APIs and web front ends: first for consumer card-payments features
+(emergency card replacement, cash disbursement, wallet provisioning), then for a global
+risk platform (VERC) that handles 1.1M+ cases. She also led an AI prefill feature that
+runs in production, powered by an agentic service built with Python, FastAPI, Claude
+Agent SDK and MCP. Open to new roles and available immediately. Her Visa work is best
+described as C# plugins, custom APIs and JavaScript portals. She worked on VERC from
+inception (the project started when her new team formed, after her first ~10 months on a
+consumer card-payments team), and the platform now enables approximately $3.5B in
+annual revenue.
 
 # EXPERIENCE
 
-## Visa Inc. - Senior Software Engineer (Jun 2023 - Jul 2026), Bengaluru, India
-Progression: Software Development Intern → Software Engineer → Senior Software Engineer.
-- Designed, developed and maintained enterprise-scale business applications for global
-  risk and customer operations using C#, JavaScript, SQL Server, REST APIs,
-  Dynamics 365, Dataverse, Power Pages and Power Automate. Contributed to the VERC
-  platform from inception; it now enables ~$3.5B in annual revenue.
-- Led end-to-end delivery: design, development, testing, deployment, production support
-  and release management. Built 100+ workflow automations plus dashboards, billing
-  functionality, notifications, audit logging and role-based access for
-  business-critical applications. Onboarded 6 business programs onto the platform,
-  each built as its own Power Pages module.
-- In roughly the last year of her tenure (from late 2025), designed and shipped
-  AI-powered workflow capabilities to production using LLM prompt engineering,
-  AI Builder and backend automation - including a live agentic architecture
-  (Python, FastAPI, Claude Agent SDK, MCP) that autonomously retrieves Dataverse
-  data and generates context-aware recommendations for end users, with no human in
-  the loop.
-- Served as Scrum Master: coordinated Agile ceremonies, sprint planning and
-  cross-functional collaboration. Mentored multiple engineers, conducted technical
-  interviews, and authored engineering documentation to speed up onboarding.
-- Delivered 1,000+ production pull requests while maintaining high engineering quality.
-  Owned remediation of ~80% of application security findings (Checkmarx, SonarQube).
+## Visa Inc., Bengaluru - three roles
+### Senior Software Engineer (Oct 2025 - Jul 2026)
+- Owned three modules of the VERC risk platform (VAMP, FRECOP, VND), handling 1.1M+
+  cases of risky, disputed and fraudulent transactions caught by VisaNet, for 280+ Visa
+  risk team members and 14K acquirer and merchant bank users, from design through
+  release and production support, during a four-legacy-system migration.
+- Led AI prefill for the online portal and offline templates, replacing acquirers' manual
+  re-typing of the same narratives in remediation plans (1M in total, one per case
+  event): saved about 20 minutes per plan, adopted by all VAMP users, reviewers accepted
+  up to 95% of drafts. Shipped to production with human-in-the-loop review, powered by
+  an agentic service (Python, FastAPI, Claude Agent SDK, MCP).
+- Designed offline templates around a stateless plugin that takes all data as
+  parameters, with idempotent re-upload parsing behind an exact title-match validation
+  gate.
+- Mentored multiple engineers and contractors through onboarding, presentations and code
+  reviews; owned VERC documentation, conducted technical interviews and served as Scrum
+  Master.
 
-## Raahee - Software Development Intern (Jun-Sep 2021)
-Built and enhanced the startup's React.js web application: responsive UI components,
-frontend-backend API integration, bug fixes and production deployments.
+### Software Engineer (Jun 2023 - Sep 2025)
+- Started on a consumer card-payments team (first ~10 months): worked on emergency card
+  replacement and emergency cash disbursement, card embossment APIs, lost-and-found card
+  and card disbursement queries, and fixes for card-generation failures and Apple Wallet
+  and Google Wallet provisioning issues, integrating APIs across teams (C#, JavaScript,
+  React).
+- Moved to VERC after about 10 months, when the new team formed, and worked on it from
+  inception, owning design through production support: built
+  100+ event-driven and scheduled workflows across nearly all cases, and 80+ C# plugins
+  and OAuth-secured REST APIs integrating VND, DGM and GCAS and syncing about 20K
+  user-action events a day between the internal and external portals, at up to 3K
+  concurrent users (up to 5K calls per API a day, under 0.5 second latency).
+- Worked on the VERC platform's front end in HTML, CSS and JavaScript, alongside the
+  backend plugins and APIs.
+- Nominated by leadership to run a proof of concept using GenAI agents to design, code,
+  test and validate changes for real Jira bugs and stories; reviewed the generated
+  designs for accuracy and presented hits and misses org-wide, and the team adopted the
+  findings.
+- Met every severity-based SLA with zero breaches, including 20+ incidents in one peak
+  on-call week; fixed and explained issues to end users, earning recognition.
+  Root-caused production issues, mostly closed within a day, with preventive fixes
+  cutting repeats.
+- Point of contact for vulnerability management every sprint: drove closure of 350+
+  Checkmarx findings, including 42 high-risk, and resolved SonarQube findings; secured
+  formal closure from Visa's cybersecurity team and met every Qualys/TSR deadline.
 
-## Microsoft Engage '21 - Mentorship Program (Jun-Jul 2021)
-Selected for Microsoft's competitive mentorship program. Built a Microsoft Teams clone
-(React.js, Node.js, Express.js, Socket.IO) with real-time messaging and authentication
-under the mentorship of a Microsoft engineer.
+### Software Development Intern (May 2022 - Jul 2022)
+Built a React.js web UI to reconcile Security Roles between Azure AD groups and an
+enterprise application, with SSIS packages for the data integration behind it;
+performance-tested the application using Selenium and Catchpoint.
+
+Also: onboarded four business modules onto the VERC portal and owned three of them.
+
+## Raahee - Software Development Intern (May 2021 - Jul 2022)
+Built responsive React.js front-end features for a mental health platform.
+
+## Microsoft Engage '21 - Mentee (Jun 2021 - Aug 2021)
+Selected for Microsoft's competitive mentorship program. Built a real-time Teams clone
+(React.js, Node.js, Express.js, Socket.IO) under a Microsoft engineer's mentorship.
 
 # SIGNATURE WORK - what Shagun actually builds
-Most of her career was the unglamorous, load-bearing parts of enterprise software:
-Dynamics 365 / Power Platform engineering, workflow automation, audit logging, release
-management - for a platform underwriting billions in transactions at Visa. In her last
-year there she built the layer above that: agentic AI workflows that read enterprise
-data and act on it. One shipped example is a live
-architecture using Python, FastAPI, the Claude Agent SDK and the Model Context Protocol
-(MCP): it retrieves Dataverse (enterprise CRM) records through an MCP server and a
-Claude agent reasons over the retrieved data to produce a recommendation - no human
-required.
+Backend services, REST APIs and web front ends at enterprise scale: C# plugins, custom
+APIs and JavaScript portals, first for consumer card-payments features and then for
+the VERC global risk platform. As Senior Software Engineer she led AI prefill: an
+agentic service (Python, FastAPI, Claude Agent SDK, Model Context Protocol) that drafts
+the narratives acquirers used to re-type by hand in remediation plans, shipped to
+production with human-in-the-loop review.
 
 # PROJECTS (personal, open source)
 
@@ -91,31 +116,22 @@ actually uploaded; the system says "I don't know" rather than guessing.
   semantic chunking - then re-diagnosed when the fix alone wasn't sufficient, revealing
   a second, still-open corpus-imbalance limitation. Documented in full in the README,
   not smoothed over.
+- Query expansion later fixed the paraphrase misses behind that 0.98 vs 0.0006
+  confidence gap.
+- A global concurrency semaphore stopped memory restarts that per-minute rate limits
+  could not prevent.
 
 ## AI Job Hunt Copilot
 Repo: https://github.com/shagun0915/job-hunt-copilot
-Live: https://job-hunt-copilot-nu.vercel.app (single-user, Google sign-in required)
-A command center for a software job search: one place for every application, recruiter
-email thread, online-assessment deadline, interview and resume version, with an LLM
-handling the tedious parts - reading job descriptions into structured requirements,
-triaging the Gmail inbox, scoring resume-to-JD fit before and after edits, and drafting
-outreach (cover letters, recruiter replies, referral asks, cold outreach). Built for
-her own search; also a study in LLM-application engineering.
-- Stack: Next.js 16 (App Router, Server Actions), TypeScript, PostgreSQL + Prisma,
-  NextAuth v5 (Google, doubling as the Gmail grant), Tailwind v4, Vitest, GitHub
-  Actions CI, deployed on Vercel with a daily cron job.
-- Every model call goes through one entry point that forces JSON mode, retries rate
-  limits with backoff, and validates the response against a Zod schema before it
-  touches the database.
-- Provider-agnostic LLM layer: any OpenAI-compatible endpoint, including Google
-  Gemini's free tier. Embeddings power a plain-language semantic search across every
-  application and email.
-- Graceful degradation everywhere: with no API keys the application tracker and the
-  job-board aggregator (pulls open roles straight from Greenhouse / Lever / Ashby with
-  no key) still work fully. CI proves it by running migrate, typecheck, lint, test and
-  build on every push entirely in keyless mode.
-- A single candidate-profile record injects accuracy constraints ("never fabricate,
-  and list the gaps that can't be closed honestly") into every resume rewrite.
+Live: https://job-hunt-copilot-nu.vercel.app (single-user, sign-in required)
+An AI-powered job-search app (Next.js, TypeScript, Postgres/Prisma) with 10+ LLM
+features (JD parsing, ATS scoring with hallucination guards, Gmail triage) behind one
+schema-validated model layer. Built for her own search; also a study in
+LLM-application engineering.
+- Hardened for real use: nonce-based CSP, row-level security, phishing screening, 26
+  Vitest tests and CI; tab switches cut to under 1 second.
+- Stack: Next.js 16, TypeScript, PostgreSQL + Prisma, NextAuth v5, Tailwind v4, Vitest,
+  GitHub Actions CI, deployed on Vercel.
 
 # PUBLISHED RESEARCH
 "Comparative Analysis of Sequential CNN and Fine-Tuned Vision Transformer for
@@ -126,19 +142,18 @@ CNN on every metric. Results: Rank-1 accuracy 98.49%, AUC-ROC 99.99%, Equal Erro
 0.40%. Paper: https://ijaecs.iraj.in/paper_detail.php?paper_id=19886
 
 # SKILLS
-Microsoft Business Applications: Dynamics 365 CE, Power Pages, Power Automate,
-Dataverse, Power Platform.
-AI & Agent Engineering: LLM integration, prompt engineering, MCP (Model Context
-Protocol), Claude Agent SDK, AI Builder, GitHub Copilot, Copilot Agent, Cline.
-Development: C#, .NET, Python, JavaScript, TypeScript, C++, SQL, PostgreSQL, HTML5, CSS3,
-REST APIs, React, Next.js, Prisma, Docker, Azure Service Bus, plugin development, custom
-workflow activities.
-(Python: production use at Visa for the agentic architecture, plus the Hybrid RAG
-project. TypeScript / Next.js / Prisma / PostgreSQL: from the AI Job Hunt Copilot
-project - a deployed, CI-backed app, so working project experience, not years of it.
-C++: university coursework and personal projects only, not professional or embedded.)
-DevOps, Security & Process: Azure DevOps, Git, Visual Studio, Postman, Checkmarx,
-SonarQube, Qualys, Agile / Scrum, CI/CD.
+Languages: Python, C++, C#, JavaScript, TypeScript, SQL.
+Front end: React.js, Next.js, TypeScript, JavaScript, HTML5, CSS3.
+Backend and APIs: REST APIs, SOAP, OAuth, FastAPI, Node.js, Express.js, Azure AD.
+Databases: PostgreSQL (pgvector), SQL Server, MySQL, Prisma.
+AI and agents: MCP, Claude Agent SDK, LLM integration, RAG, hybrid search, cross-encoder
+reranking, Claude Code and GitHub Copilot (daily use).
+Cloud and tools: Docker, Azure (Functions, Azure AD), Azure DevOps, GitHub Actions, Git,
+Vitest, Checkmarx, SonarQube.
+(Python: production use at Visa for the agentic service, plus the Hybrid RAG project.
+TypeScript / Next.js / Prisma / PostgreSQL: from the AI Job Hunt Copilot project and
+earlier front-end work. C++: university coursework and personal projects only, not
+professional or embedded.)
 
 # HONORS
 - 2nd Prize, AI/ML Track & Best All-Girls Team - Hackhound Hackathon
@@ -159,11 +174,10 @@ Engineering. CGPA 8.19 / 10.
 ## What Shagun is looking for
 Open to new opportunities now and available to start immediately (no notice period).
 Roles she's targeting, roughly in order of fit:
-  1. Dynamics 365 CE / Power Platform Developer roles - her deepest experience.
-  2. Senior Software Engineer / backend roles (C#/.NET), especially teams that value
-     hands-on agentic-AI / LLM experience.
-  3. Copilot Studio / AI-agent developer roles, where her Claude Agent SDK + MCP
-     production work is directly relevant.
+  1. Senior Software Engineer / backend roles, especially teams that value hands-on
+     agentic-AI / LLM experience.
+  2. AI-agent developer roles, where her Claude Agent SDK + MCP production work is
+     directly relevant.
 Location: based in Bengaluru. Prefers remote; open to on-site/hybrid in Bengaluru,
 and open to relocating within India (e.g. Noida, Hyderabad). Authorised to work in
 India; open to discussing international roles but nothing decided.
@@ -173,32 +187,31 @@ Best way to start a conversation: email shagun0915@gmail.com.
 # (not specified yet)
 
 ## Visa work - extra context
-- Core of the role: Dynamics 365 CE / Power Platform engineering - C#/.NET plugins,
-  custom workflow activities, Dataverse, Power Pages, Power Automate, JavaScript,
-  SQL Server, REST APIs, Azure Service Bus, Azure DevOps (ALM + CI/CD).
-- Scale/impact she's comfortable stating: contributed to VERC from inception
-  (~$3.5B annual revenue today), 1,000+ production PRs, 100+ workflow automations,
-  6 business programs onboarded as Power Pages modules, ~80% of application security
-  findings (Checkmarx/SonarQube) remediated, Scrum Master for her team.
-- The agentic-AI work (Claude Agent SDK, MCP, AI Builder, prompt engineering) is
-  genuine production experience but spans roughly her final year (~late 2025 onward),
+- Core of the role: backend services, REST APIs and web front ends - C# plugins, custom
+  APIs and JavaScript portals (plus HTML, CSS, React). Consumer card payments first,
+  then the VERC global risk platform.
+- Scale/impact she's comfortable stating: VERC handles 1.1M+ cases and now enables
+  approximately $3.5B in annual revenue; 280+ Visa risk team members and 14K acquirer
+  and merchant bank users; 100+ event-driven and scheduled workflows; 80+ C# plugins and
+  OAuth-secured REST APIs; 350+ Checkmarx findings closed
+  (42 high-risk); every severity-based SLA met; four business modules onboarded onto
+  the VERC portal, three of which she owned; Scrum Master.
+- The agentic-AI work (AI prefill, built with Claude Agent SDK and MCP) is genuine
+  production experience from her Senior Software Engineer role (Oct 2025 - Jul 2026),
   not her whole tenure - represent it that way, don't imply years of it.
-- Do NOT share employer-confidential internals, team names, client names, or specifics
-  beyond the above.
+- Do NOT share employer-confidential internals, client names, or specifics beyond the
+  above.
 
 ## Not part of her background
 The following are NOT things Shagun works with; if asked, say plainly that it isn't
 part of her background (do not use the phrase "skill boundaries" or refer to this list):
-Power FX, SOAP APIs, KingswaySoft / SSIS, any Microsoft certifications (PL-400, MB-600,
-PL-600, etc.), Angular, Power BI, SharePoint / Teams / Exchange / Intune
+any Microsoft certifications, Angular, SharePoint / Teams / Exchange / Intune
 administration, ASP.NET MVC, Entity Framework, NestJS, Kubernetes (she uses
-Docker, not orchestration), AWS (her cloud is Azure), Java, SAP, Oracle, and
-professional embedded / systems programming. She knows C++ (university coursework and
-personal projects) but has no professional or embedded C++ experience - don't imply
-otherwise. TypeScript and Next.js come from the Job Hunt Copilot project (real, deployed,
-but one project - working knowledge, not years). Node.js is personal-project only. She
-has hands-on Microsoft Copilot Studio experience but not a long track record with it -
-describe it as a skill, never with a year count.
+Docker, not orchestration), AWS (her cloud is Azure), Java, SAP, Oracle, Azure Service
+Bus, and professional embedded / systems programming. She knows C++ (university
+coursework and personal projects) but has no professional or embedded C++ experience -
+don't imply otherwise. TypeScript and Next.js come mainly from the Job Hunt Copilot
+project (real, deployed, but working knowledge, not years).
 
 ## Views on engineering / AI
 # (not specified yet)

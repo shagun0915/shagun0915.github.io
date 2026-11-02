@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shagun Yadav - Senior Software Engineer</title>
-<meta name="description" content="Shagun Yadav - Senior Software Engineer. C#/.NET and the Microsoft Power Platform at enterprise scale, with production agentic-AI experience. Open to new roles, available immediately.">
+<meta name="description" content="Shagun Yadav - Senior Software Engineer. Enterprise backends (C#, Python, REST APIs) and production AI agents (Claude Agent SDK, MCP). Open to new roles, available immediately.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -204,7 +204,7 @@
 
   .stat-row{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     border-top: 1px solid var(--line);
     padding-top: 28px;
     gap: 20px;
@@ -458,6 +458,23 @@
     border-bottom: 1px solid var(--ink);
   }
   .pub-link:hover{ color: var(--teal); border-color: var(--teal); }
+  .pub-note{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    margin-left: 8px;
+  }
+  .media-placeholder{
+    border: 1px dashed var(--line);
+    border-radius: 6px;
+    padding: 34px 20px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    background: var(--paper);
+  }
   @media (max-width: 600px){ .pub-stats{ grid-template-columns: 1fr; gap: 14px; } .pub-card{ padding: 26px; } }
 
   /* ---------- HONORS ---------- */
@@ -757,8 +774,8 @@
     <div class="wrap">
       <div class="hero-name">Shagun Yadav - Bengaluru, India</div>
       <div class="open-badge">● Open to new roles · available immediately</div>
-      <h1 class="hero-title">I build enterprise platforms - and the <em>AI agents</em> that run on them.</h1>
-      <p class="hero-sub">From intern to Senior Software Engineer over three years at Visa, on a global risk platform I helped build from inception - it now moves <b>$3.5B a year</b>. My core is <b>C#/.NET and the Microsoft Power Platform</b>; in my last year there I built an <b>agentic AI</b> layer on top of it. Open to new roles and available to start now.</p>
+      <h1 class="hero-title">I build enterprise backends and the <em>AI agents</em> that run on them.</h1>
+      <p class="hero-sub">Senior Software Engineer with 3+ years at Visa, from intern to Senior, building backend services, REST APIs and web front ends: first for consumer card-payments features (emergency card replacement, cash disbursement, wallet provisioning), then for a global risk platform (VERC) that handles <b>1.1M+ cases</b>. I also led an <b>AI prefill</b> feature that runs in production, powered by an agentic service built with Python, FastAPI, Claude Agent SDK and MCP. Open to new roles and available immediately.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="mailto:shagun0915@gmail.com">Get in touch →</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/shagunyadav0915/" target="_blank" rel="noopener">LinkedIn</a>
@@ -766,7 +783,6 @@
       </div>
       <div class="stat-row">
         <div class="stat"><b>$3.5B</b><span>Annual revenue on VERC</span></div>
-        <div class="stat"><b>1,000+</b><span>Production pull requests</span></div>
         <div class="stat"><b>3+ yrs</b><span>Visa, intern → senior</span></div>
         <div class="stat"><b>Live</b><span>Agentic AI, in production</span></div>
       </div>
@@ -781,12 +797,12 @@
       </div>
       <div class="pipeline-block reveal">
         <div class="pipeline-copy">
-          <p>Most of my career was the load-bearing parts of enterprise software - <strong>Dynamics 365 / Power Platform engineering</strong> (C#/.NET plugins and custom workflow activities, not drag-and-drop), workflow automation, audit logging, release management - for a platform that underwrote billions in transactions at Visa. I shipped <strong>100+ workflow automations</strong> and onboarded six business programs, each as its own Power Pages module.</p>
-          <p>In my last year there, I built the layer above that: <strong>agentic AI workflows</strong> that read enterprise data and act on it. One shipped example - a live architecture using <strong>Python, FastAPI, Claude Agent SDK, and the Model Context Protocol (MCP)</strong> - retrieved Dataverse records and generated context-aware recommendations, without a human in the loop.</p>
+          <p>My work at Visa has been backend services and web front ends: <strong>C# plugins, custom APIs and JavaScript portals</strong>, first for consumer card-payments features, then for the VERC risk platform, which I worked on from inception and which is now enabling approximately <strong>$3.5B in annual revenue</strong>. There I built <strong>100+ event-driven and scheduled workflows</strong> and <strong>80+ C# plugins and OAuth-secured REST APIs</strong>. Onboarded four business modules onto the VERC portal and owned three of them.</p>
+          <p>As Senior Software Engineer I led <strong>AI prefill</strong> for the online portal and offline templates, replacing acquirers' manual re-typing of the same narratives in remediation plans. It is powered by an agentic service built with <strong>Python, FastAPI, Claude Agent SDK, and the Model Context Protocol (MCP)</strong>, and it shipped to production with human-in-the-loop review.</p>
           <p>The diagram shows roughly what that looks like in production.</p>
         </div>
         <div class="pipeline-svg-wrap" id="pipelineWrap">
-          <svg viewBox="0 0 300 320" width="100%" role="img" aria-label="Diagram: Dataverse connects to MCP Server, which connects to Claude Agent, which produces a Recommendation">
+          <svg viewBox="0 0 300 320" width="100%" role="img" aria-label="Diagram: VERC case data connects to MCP Server, which connects to Claude Agent, which produces a prefill draft that a human reviews">
             <!-- vertical flow: 3 nodes + outcome -->
             <line class="pl-line" style="--len:82" x1="50" y1="49" x2="50" y2="131" />
             <line class="pl-line" style="--len:82" x1="50" y1="149" x2="50" y2="231" />
@@ -794,8 +810,8 @@
 
             <circle class="pl-dot" cx="50" cy="40" r="9"/>
             <circle class="pl-pulse" cx="50" cy="40" r="9"/>
-            <text class="pl-node-label" x="72" y="36">Dataverse</text>
-            <text class="pl-node-sub" x="72" y="49">Enterprise CRM records</text>
+            <text class="pl-node-label" x="72" y="36">VERC case data</text>
+            <text class="pl-node-sub" x="72" y="49">Case records</text>
 
             <circle class="pl-dot" cx="50" cy="140" r="9"/>
             <circle class="pl-pulse" cx="50" cy="140" r="9"/>
@@ -808,7 +824,7 @@
             <text class="pl-node-sub" x="72" y="249">Reasons over retrieved data</text>
 
             <rect x="15" y="270" width="270" height="36" rx="4" fill="none" stroke="var(--amber)" stroke-width="1.4"/>
-            <text class="pl-node-label" x="27" y="292" style="fill:var(--amber)">→ Recommendation, no human required</text>
+            <text class="pl-node-label" x="27" y="292" style="fill:var(--amber)">→ Prefill draft, human reviews</text>
           </svg>
         </div>
       </div>
@@ -821,23 +837,53 @@
       <div class="section-head reveal">
         <div class="eyebrow">Experience</div>
         <h2 class="section-title">Three years, one company, three roles.</h2>
-        <p class="section-lede">Promoted twice - from intern to senior engineer - while the platform I joined as an intern kept growing under me.</p>
+        <p class="section-lede">Promoted twice, from intern to senior engineer, across consumer card payments and a global risk platform.</p>
       </div>
 
       <div class="role reveal">
         <div class="role-meta">
           <span class="co">Visa Inc.</span>
-          Jun 2023 - Jul 2026<br>Bengaluru, India
+          Oct 2025 - Jul 2026<br>Bengaluru, India
         </div>
         <div>
           <h3>Senior Software Engineer</h3>
           <div class="progression">Software Development Intern <span class="arrow">→</span> Software Engineer <span class="arrow">→</span> Senior Software Engineer</div>
           <ul class="bullets">
-            <li>Designed, developed, and maintained enterprise-scale business applications for global risk and customer operations with <b>C#/.NET plugin development, custom workflow activities, JavaScript, SQL Server, and REST APIs</b> across Dynamics 365, Dataverse, Power Pages, and Power Automate; contributed to the VERC platform from inception, now enabling approximately <b>$3.5B in annual revenue</b>.</li>
-            <li>Led end-to-end software delivery - design, development, testing, deployment, production support, and release management - shipping <b>100+ workflow automations</b>, dashboards, billing functionality, notifications, audit logging, and role-based access, and onboarding <b>six business programs</b> each as its own Power Pages module.</li>
-            <li>In the final year of the role, designed and shipped <b>AI-powered workflow capabilities to production</b> using LLM prompt engineering, AI Builder, and backend automation, including a live agentic architecture (<b>Python, FastAPI, Claude Agent SDK, MCP</b>) that autonomously retrieves Dataverse data and generates context-aware recommendations for end users.</li>
-            <li>Served as <b>Scrum Master</b>, coordinating Agile ceremonies, sprint planning, and cross-functional collaboration; mentored multiple engineers, conducted technical interviews, and authored engineering documentation to accelerate onboarding.</li>
-            <li>Delivered <b>1,000+ production pull requests</b> while maintaining high engineering quality; owned remediation of approximately <b>80% of application security findings</b> (Checkmarx, SonarQube).</li>
+            <li>Owned three modules of the VERC risk platform (VAMP, FRECOP, VND), handling <b>1.1M+ cases</b> of risky, disputed and fraudulent transactions caught by VisaNet, for 280+ Visa risk team members and 14K acquirer and merchant bank users, from design through release and production support, during a four-legacy-system migration.</li>
+            <li>Led <b>AI prefill</b> for the online portal and offline templates, replacing acquirers' manual re-typing of the same narratives in remediation plans (1M in total, one per case event): saved about <b>20 minutes per plan</b>, adopted by all VAMP users, reviewers accepted up to <b>95%</b> of drafts. Shipped to production with human-in-the-loop review, powered by an agentic service (<b>Python, FastAPI, Claude Agent SDK, MCP</b>).</li>
+            <li>Designed offline templates around a stateless plugin that takes all data as parameters, with idempotent re-upload parsing behind an exact title-match validation gate.</li>
+            <li>Mentored multiple engineers and contractors through onboarding, presentations and code reviews; owned VERC documentation, conducted technical interviews and served as <b>Scrum Master</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role reveal">
+        <div class="role-meta">
+          <span class="co">Visa Inc.</span>
+          Jun 2023 - Sep 2025<br>Bengaluru, India
+        </div>
+        <div>
+          <h3>Software Engineer</h3>
+          <ul class="bullets">
+            <li>Started on a consumer card-payments team (first ~10 months): worked on emergency card replacement and emergency cash disbursement, card embossment APIs, lost-and-found card and card disbursement queries, and fixes for card-generation failures and Apple Wallet and Google Wallet provisioning issues, integrating APIs across teams (C#, JavaScript, React).</li>
+            <li>Moved to VERC after about 10 months, when the new team formed, and worked on it from inception, owning design through production support: built <b>100+ event-driven and scheduled workflows</b> across nearly all cases, and <b>80+ C# plugins and OAuth-secured REST APIs</b> integrating VND, DGM and GCAS and syncing about 20K user-action events a day between the internal and external portals, at up to 3K concurrent users (up to 5K calls per API a day, under 0.5 second latency).</li>
+            <li>Worked on the VERC platform's front end in HTML, CSS and JavaScript, alongside the backend plugins and APIs.</li>
+            <li>Nominated by leadership to run a proof of concept using GenAI agents to design, code, test and validate changes for real Jira bugs and stories; reviewed the generated designs for accuracy and presented hits and misses org-wide, and the team adopted the findings.</li>
+            <li>Met every severity-based SLA with zero breaches, including 20+ incidents in one peak on-call week; fixed and explained issues to end users, earning recognition. Root-caused production issues, mostly closed within a day, with preventive fixes cutting repeats.</li>
+            <li>Point of contact for vulnerability management every sprint: drove closure of <b>350+ Checkmarx findings</b>, including 42 high-risk, and resolved SonarQube findings; secured formal closure from Visa's cybersecurity team and met every Qualys/TSR deadline.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role reveal">
+        <div class="role-meta">
+          <span class="co">Visa Inc.</span>
+          May 2022 - Jul 2022<br>Bengaluru, India
+        </div>
+        <div>
+          <h3>Software Development Intern</h3>
+          <ul class="bullets">
+            <li>Built a React.js web UI to reconcile Security Roles between Azure AD groups and an enterprise application, with SSIS packages for the data integration behind it; performance-tested the application using Selenium and Catchpoint.</li>
           </ul>
         </div>
       </div>
@@ -845,12 +891,12 @@
       <div class="reveal">
         <div class="earlier-grid">
           <div class="earlier-card">
-            <div class="role-meta"><span class="co">Raahee</span>Software Development Intern · Jun-Sep 2021</div>
-            <p>Built and enhanced the startup's React.js web application - responsive UI components, frontend-backend API integration, bug fixes, and production deployments.</p>
+            <div class="role-meta"><span class="co">Raahee</span>Software Development Intern · May 2021 - Jul 2022</div>
+            <p>Built responsive React.js front-end features for a mental health platform.</p>
           </div>
           <div class="earlier-card">
-            <div class="role-meta"><span class="co">Microsoft Engage '21</span>Mentorship Program · Jun-Jul 2021</div>
-            <p>Selected for Microsoft's competitive mentorship program; built a Microsoft Teams clone (React.js, Node.js, Express.js, Socket.IO) with real-time messaging and authentication under Microsoft engineer mentorship.</p>
+            <div class="role-meta"><span class="co">Microsoft Engage '21</span>Mentee · Jun 2021 - Aug 2021</div>
+            <p>Selected for Microsoft's competitive mentorship program; built a real-time Teams clone (React.js, Node.js, Express.js, Socket.IO) under a Microsoft engineer's mentorship.</p>
           </div>
         </div>
       </div>
@@ -866,27 +912,39 @@
       </div>
       <div class="skill-groups reveal">
         <div class="skill-group">
-          <h4>Engineering</h4>
+          <h4>Languages</h4>
           <div class="tag-row">
-            <span class="tag">C#</span><span class="tag">.NET</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">C++</span><span class="tag">SQL Server</span><span class="tag">PostgreSQL</span><span class="tag">REST APIs</span><span class="tag">Plugin Development</span><span class="tag">Custom Workflow Activities</span><span class="tag">Azure Service Bus</span><span class="tag">Docker</span><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Prisma</span><span class="tag">HTML5</span><span class="tag">CSS3</span>
+            <span class="tag">Python</span><span class="tag">C++</span><span class="tag">C#</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">SQL</span>
           </div>
         </div>
         <div class="skill-group">
-          <h4>AI &amp; Agent Engineering</h4>
+          <h4>Front end</h4>
           <div class="tag-row">
-            <span class="tag ai">LLM Integration</span><span class="tag ai">Prompt Engineering</span><span class="tag ai">MCP</span><span class="tag ai">Claude Agent SDK</span><span class="tag ai">RAG</span><span class="tag ai">AI Builder</span><span class="tag ai">Copilot Studio</span><span class="tag ai">GitHub Copilot</span><span class="tag ai">Cline</span>
+            <span class="tag">React.js</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">JavaScript</span><span class="tag">HTML5</span><span class="tag">CSS3</span>
           </div>
         </div>
         <div class="skill-group">
-          <h4>Microsoft Power Platform</h4>
+          <h4>Backend and APIs</h4>
           <div class="tag-row">
-            <span class="tag">Dynamics 365 CE</span><span class="tag">Dataverse</span><span class="tag">Power Pages</span><span class="tag">Power Automate</span><span class="tag">Power Platform</span>
+            <span class="tag">REST APIs</span><span class="tag">SOAP</span><span class="tag">OAuth</span><span class="tag">FastAPI</span><span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">Azure AD</span>
           </div>
         </div>
         <div class="skill-group">
-          <h4>Delivery, Security &amp; Process</h4>
+          <h4>Databases</h4>
           <div class="tag-row">
-            <span class="tag">Azure DevOps</span><span class="tag">CI/CD</span><span class="tag">Git</span><span class="tag">Agile / Scrum</span><span class="tag">Scrum Master</span><span class="tag">Visual Studio</span><span class="tag">Postman</span><span class="tag">Checkmarx</span><span class="tag">SonarQube</span><span class="tag">Qualys</span>
+            <span class="tag">PostgreSQL (pgvector)</span><span class="tag">SQL Server</span><span class="tag">MySQL</span><span class="tag">Prisma</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>AI and agents</h4>
+          <div class="tag-row">
+            <span class="tag ai">MCP</span><span class="tag ai">Claude Agent SDK</span><span class="tag ai">LLM integration</span><span class="tag ai">RAG</span><span class="tag ai">hybrid search</span><span class="tag ai">cross-encoder reranking</span><span class="tag ai">Claude Code (daily use)</span><span class="tag ai">GitHub Copilot (daily use)</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Cloud and tools</h4>
+          <div class="tag-row">
+            <span class="tag">Docker</span><span class="tag">Azure (Functions, Azure AD)</span><span class="tag">Azure DevOps</span><span class="tag">GitHub Actions</span><span class="tag">Git</span><span class="tag">Vitest</span><span class="tag">Checkmarx</span><span class="tag">SonarQube</span>
           </div>
         </div>
       </div>
@@ -914,7 +972,7 @@
           <div><b>0.78</b><span>Mean Reciprocal Rank</span></div>
           <div><b>11</b><span>Golden Eval Cases</span></div>
         </div>
-        <p class="pub-desc">Found and fixed a real retrieval bug along the way: a paraphrased query collapsed retrieval confidence from <b>0.98</b> (asking "SonarQube" directly) to <b>0.0006</b> (asking "what security tools were used for remediation?"). Traced to a chunk-boundary issue, fixed with embedding-based semantic chunking - then re-diagnosed further when the fix alone turned out not to be sufficient, revealing a second, still-open corpus-imbalance limitation. Documented in full in the README, not smoothed over.</p>
+        <p class="pub-desc">Found and fixed a real retrieval bug along the way: a paraphrased query collapsed retrieval confidence from <b>0.98</b> (asking "SonarQube" directly) to <b>0.0006</b> (asking "what security tools were used for remediation?"). Traced to a chunk-boundary issue, fixed with embedding-based semantic chunking - then re-diagnosed further when the fix alone turned out not to be sufficient, revealing a second, still-open corpus-imbalance limitation. Query expansion later fixed the paraphrase misses behind that 0.98 vs 0.0006 confidence gap, and a global concurrency semaphore stopped memory restarts that per-minute rate limits could not prevent. Documented in full in the README, not smoothed over.</p>
         <div style="display:flex; flex-wrap:wrap; gap:14px 22px;">
           <a class="pub-link" href="https://github.com/shagun0915/hybrid-rag-platform" target="_blank" rel="noopener">View on GitHub ↗</a>
           <a class="pub-link" href="https://hybrid-rag-platform.onrender.com/ui/" target="_blank" rel="noopener">Try the live demo ↗</a>
@@ -924,19 +982,21 @@
       <div class="pub-card reveal" style="margin-top:24px;">
         <div class="pub-venue">Personal Project · Open Source</div>
         <h3>AI Job Hunt Copilot - a command center for a software job search</h3>
-        <p class="pub-desc">One place for every application, recruiter thread, OA deadline, interview and resume version, with an LLM handling the tedious parts: reading job descriptions into structured requirements, triaging the Gmail inbox, scoring resume-to-JD fit before and after edits, and drafting outreach. It aggregates open roles straight from company ATS boards (Greenhouse, Lever, Ashby) with no API key, and answers plain-language questions across every application and email ("who ghosted me after an onsite"). Built for my own search; also a study in LLM-application engineering.</p>
+        <p class="pub-desc">An AI-powered job-search app (Next.js, TypeScript, Postgres/Prisma) with 10+ LLM features (JD parsing, ATS scoring with hallucination guards, Gmail triage) behind one schema-validated model layer. Built for my own search; also a study in LLM-application engineering.</p>
         <div class="tag-row" style="margin-bottom:24px;">
           <span class="tag">Next.js 16</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL + Prisma</span><span class="tag">NextAuth v5</span><span class="tag">Tailwind v4</span><span class="tag ai">Zod-validated extraction</span><span class="tag ai">Embeddings / semantic search</span><span class="tag ai">Gmail API (OAuth)</span>
         </div>
         <div class="pub-stats">
-          <div><b>11</b><span>Feature areas</span></div>
-          <div><b>3</b><span>ATS boards, no key</span></div>
-          <div><b>0</b><span>Keys to run the tracker</span></div>
+          <div><b>10+</b><span>LLM features</span></div>
+          <div><b>26</b><span>Vitest tests</span></div>
+          <div><b>&lt;1s</b><span>Tab switches</span></div>
         </div>
-        <p class="pub-desc">Every model call goes through one entry point that forces JSON mode, retries rate limits with backoff, and validates against a Zod schema before anything touches the database. The LLM layer is provider-agnostic - any OpenAI-compatible endpoint, including Gemini's free tier - and every integration degrades gracefully: with no API keys the tracker and job board still work fully, and CI proves it by running migrate, typecheck, lint, test and build on every push entirely in keyless mode. A single candidate-profile record injects "never fabricate, and list the gaps that can't be closed honestly" into every resume rewrite.</p>
+        <p class="pub-desc">Hardened for real use: nonce-based CSP, row-level security, phishing screening, 26 Vitest tests and CI; tab switches cut to under 1 second.</p>
+        <!-- TODO: replace this placeholder with a screenshot (<img>) or a short demo video (<video> / embed) -->
+        <div class="media-placeholder" role="img" aria-label="Screenshot or demo video coming soon">Screenshot / short demo video coming soon</div>
         <div style="display:flex; flex-wrap:wrap; gap:14px 22px;">
           <a class="pub-link" href="https://github.com/shagun0915/job-hunt-copilot" target="_blank" rel="noopener">View on GitHub ↗</a>
-          <a class="pub-link" href="https://job-hunt-copilot-nu.vercel.app/" target="_blank" rel="noopener">Live demo (sign-in required) ↗</a>
+          <span><a class="pub-link" href="https://job-hunt-copilot-nu.vercel.app/" target="_blank" rel="noopener">Live demo ↗</a><span class="pub-note">Sign-in required</span></span>
         </div>
       </div>
     </div>
@@ -1004,7 +1064,7 @@
     <div class="wrap">
       <div class="eyebrow">Get in touch</div>
       <h2>Building something worth automating?</h2>
-      <p>I'm open to new roles in enterprise software, the Power Platform, and AI engineering - remote, Bengaluru, or open to relocating within India - and available to start immediately. Always glad to talk shop, too.</p>
+      <p>I'm open to new roles in enterprise backend and AI engineering - remote, Bengaluru, or open to relocating within India - and available to start immediately. Always glad to talk shop, too.</p>
       <div class="footer-links">
         <a href="mailto:shagun0915@gmail.com">shagun0915@gmail.com</a>
         <a href="tel:+919810490187">+91 98104 90187</a>
